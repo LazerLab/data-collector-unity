@@ -9,16 +9,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using VSDataCollector;
 
-public class DataToJSONTest : MonoBehaviour 
+public class DataToStringTest : MonoBehaviour 
 {
 	// Use this for initialization
 	void Start() 
 	{
 		DataCollector data = DataCollector.Get;
 		Experiment exp = data.TrackExperiment("testExperiment");
-		exp.SetDelegate("Time", 5.0f);
-		exp.SetDelegate("Count", 10);
-		print(exp.ToJSON());
+        exp.AddDataRow(1, 3, "test", 4, 4.5f);
+        Debug.Log(exp.LastRowToString());
 	}
 
 }
