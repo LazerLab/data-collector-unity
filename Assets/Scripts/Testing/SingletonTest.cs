@@ -7,7 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VSDataCollector;
+using VolunteerScience;
 
 public class SingletonTest : MonoBehaviour 
 {
