@@ -32,5 +32,10 @@ function handleSubmitEvent(eventData)
      submit(eventData.split(JOIN_CHAR)[1]);
 }
 
+function setGameWindow()
+{
+     gameWindow = document.getElementById("game").contentWindow;
+}
+
+document.getElementById("game").onload = setGameWindow;
 window.addEventListener('message', receiveEvent, false);
-gameWindow = document.getElementById("game").contentWindow;
