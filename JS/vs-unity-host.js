@@ -37,5 +37,5 @@ function setGameWindow()
      gameWindow = document.getElementById("game").contentWindow;
 }
 
-document.getElementById("game").onload = setGameWindow;
+window.onload = setGameWindow;
 window.addEventListener('message', receiveEvent, false);
