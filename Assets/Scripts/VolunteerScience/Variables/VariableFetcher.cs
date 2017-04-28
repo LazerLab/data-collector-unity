@@ -10,6 +10,7 @@ namespace VolunteerScience
 
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
 
     public class VariableFetcher : Singleton<VariableFetcher>
     {
@@ -17,7 +18,7 @@ namespace VolunteerScience
         {
             return new VariableFetchAction(key, callback);
         }
-
+            
     }
 
     public class VariableFetchAction 
@@ -35,7 +36,13 @@ namespace VolunteerScience
             this.callback = callback;
             run();
         }
-            
+
+        protected VariableFetchAction(string key)
+        {
+            this.key = key;
+            run();
+        }
+
         public void RunCallback(object value)
         {
             callback(value);
@@ -75,6 +82,22 @@ namespace VolunteerScience
 
     }
 
+    public class VariableFetchAction<T> : VariableFetchAction where T : class
+    {
+        Action<T> callback;
+
+        internal VariableFetchAction(string key, Action<T> callback) : base(key)
+        {
+            this.callback = callback;
+        }
+
+        public void RunCallback(T value)
+        {
+            callback(value);
+        }
+
+    }
+     
     public class VariableReceiveHandler : MonoBehaviour
     {
         VariableFetchAction fetcher;
@@ -84,11 +107,39 @@ namespace VolunteerScience
             this.fetcher = fetcher;
         }
 
-        public void Receive(object value)
+        public virtual void Receive(object value)
         {
             fetcher.RunCallback(value);   
         }
 
     }
 
+    public class VariableReceiveHandler<T> : VariableReceiveHandler where T : class
+    {
+        const string PARSE_METHOD_NAME = "Parse";
+
+        VariableFetchAction<T> fetcher;
+
+        public void Set(VariableFetchAction<T> fetcher)
+        {
+            this.fetcher = fetcher;
+        }
+
+        public override void Receive(object value)
+        {
+            try
+            {
+                MethodInfo parseMethod = typeof(T).GetMethod(PARSE_METHOD_NAME);
+                T convertedValue = default(T);
+                parseMethod.Invoke(convertedValue, new object[]{value.ToString()});
+                fetcher.RunCallback(convertedValue);
+            }
+            catch
+            {
+                // TODO: Try converting the value to string and / or casting it
+                // THEN, Debug out an error if both of these fail
+                throw new System.NotImplementedException();
+            }
+        }
+    }
 }
