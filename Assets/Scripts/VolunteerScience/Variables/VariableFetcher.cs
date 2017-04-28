@@ -18,7 +18,12 @@ namespace VolunteerScience
         {
             return new VariableFetchAction(key, callback);
         }
-            
+         
+        public VariableFetchAction GetValue<T>(string key, Action<T> callback) where T : class
+        {
+            return new VariableFetchAction<T>(key, callback);
+        }
+
     }
 
     public class VariableFetchAction 
@@ -127,18 +132,30 @@ namespace VolunteerScience
 
         public override void Receive(object value)
         {
-            try
+            if(typeof(T) == typeof(string))
             {
-                MethodInfo parseMethod = typeof(T).GetMethod(PARSE_METHOD_NAME);
-                T convertedValue = default(T);
-                parseMethod.Invoke(convertedValue, new object[]{value.ToString()});
-                fetcher.RunCallback(convertedValue);
+                fetcher.RunCallback(value.ToString());
             }
-            catch
+            else
             {
-                // TODO: Try converting the value to string and / or casting it
-                // THEN, Debug out an error if both of these fail
-                throw new System.NotImplementedException();
+                try
+                {
+                    MethodInfo parseMethod = typeof(T).GetMethod(PARSE_METHOD_NAME);
+                    T convertedValue = default(T);
+                    parseMethod.Invoke(convertedValue, new object[]{value.ToString()});
+                    fetcher.RunCallback(convertedValue);
+                }
+                catch
+                {
+                    try
+                    {
+                        fetcher.RunCallback((T) value);
+                    }
+                    catch
+                    {
+                        Debug.LogErrorFormat("Unable to convert {0} to type {1}", value, typeof(T));
+                    }
+                }
             }
         }
     }

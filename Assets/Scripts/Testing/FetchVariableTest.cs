@@ -26,4 +26,9 @@ public class FetchVariableTest : MonoBehaviour
         Debug.Log(value);
     }
 
+    void printFloat(float value)
+    {
+        Debug.Log(value);
+    }
+
 }
