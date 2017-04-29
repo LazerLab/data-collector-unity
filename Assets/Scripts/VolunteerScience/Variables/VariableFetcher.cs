@@ -6,10 +6,10 @@
 
 namespace VolunteerScience
 {
-    using UnityEngine;
-
     using System;
     using System.Collections.Generic;
+
+    using UnityEngine;
 
     public class VariableFetcher : Singleton<VariableFetcher>
     {
@@ -18,77 +18,45 @@ namespace VolunteerScience
             return new VariableFetchAction(key, callback);
         }
 
+        public VariableFetchAction GetString(string key, Action<string> callback)
+        {
+            return new StringFetchAction(key, callback);
+        }
+
+        public VariableFetchAction GetFloat(string key, Action<float> callback)
+        {
+            return new FloatFetchAction(key, callback);
+        }
+
+        public VariableFetchAction GetInt(string key, Action<int> callback)
+        {
+            return new IntFetchAction(key, callback);
+        }
+
+        public VariableFetchAction GetBool(string key, Action<bool> callback)
+        {
+            return new BoolFetchAction(key, callback);
+        }
+
+        public VariableFetchAction GetValueList(string key, Action<string[]> callback)
+        {
+            return new VariableListFetchAction(key, callback);
+        }
+
+        public VariableFetchAction GetFloatList(string key, Action<float[]> callback)
+        {
+            return new FloatListFetchAction(key, callback);
+        }
+
+        public VariableFetchAction GetIntList(string key, Action<int[]> callback)
+        {
+            return new IntListFetchAction(key, callback);
+        }
+
+        public VariableFetchAction GetBoolList(string key, Action<bool[]> callback)
+        {
+            return new BoolListFetchAction(key, callback);
+        }
     }
-
-    public class VariableFetchAction 
-    {
-        const string RECEIVE_FUNC = "Receive";
-        const string FETCH_FUNC = "fetch";
-
-        Action<object> callback;
-        string key;
-        GameObject callbackObj;
-
-        internal VariableFetchAction(string key, Action<object> callback)
-        {
-            this.key = key;
-            this.callback = callback;
-            run();
-        }
-            
-        public void RunCallback(object value)
-        {
-            callback(value);
-        }
-
-        void run()
-        {
-            // Setup GameObject to receiver
-            this.callbackObj = createObject();
-            string jsCall = getJSCall(this.key, this.callbackObj);
-            Application.ExternalEval(jsCall);
-        }
-
-        /*
-         * Should generate a call in the following format
-         * SendMessage([GameObject Name], 'Receive', variables['key']);
-         */
-        string getJSCall(string key, GameObject receiver)
-        {
-            return string.Format("{0}('{1}', '{2}', '{3}');", 
-                FETCH_FUNC,
-                key,
-                receiver.name,
-                RECEIVE_FUNC);
-        }
-
-        GameObject createObject()
-        {
-            GameObject receiverObj = new GameObject();
-            // Create a random ID for this GO:
-            receiverObj.name = Guid.NewGuid().ToString();
-            // Hide this so it doesn't crowd the scene
-            receiverObj.hideFlags = HideFlags.HideInHierarchy;
-            receiverObj.AddComponent<VariableReceiveHandler>().Set(this);
-            return receiverObj;
-        }
-
-    }
-
-    public class VariableReceiveHandler : MonoBehaviour
-    {
-        VariableFetchAction fetcher;
-
-        public void Set(VariableFetchAction fetcher)
-        {
-            this.fetcher = fetcher;
-        }
-
-        public void Receive(object value)
-        {
-            fetcher.RunCallback(value);   
-        }
-
-    }
-
+        
 }

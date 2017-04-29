@@ -91,6 +91,133 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &454912727
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165695874094130, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165695874094130, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165695874094130, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165695874094130, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165695874094130, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165695874094130, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165695874094130, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165695874094130, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[2].key
+      value: testFloat
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[2].value
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[0].key
+      value: testValue
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[0].value
+      value: Hello World
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[1].key
+      value: testInt
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[1].value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[3].key
+      value: testBool
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[3].value
+      value: FALSE
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[4].key
+      value: testValueList
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[4].value
+      value: Hi, Hello, Whatup
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[5].key
+      value: testIntList
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[5].value
+      value: 1, 2, 3, 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[6].key
+      value: testFloatList
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[6].value
+      value: 2.4, 4.51, 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[7].key
+      value: testBoolList
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[7].value
+      value: FALSE, true, TRUE, false, FALSE
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1369009047
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +333,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testKey: testKey
+  testInt: testInt
+  testFloat: testFloat
+  testBool: testBool
 --- !u!4 &2144802934
 Transform:
   m_ObjectHideFlags: 0

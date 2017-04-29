@@ -100,6 +100,11 @@ namespace VolunteerScience
             }
         }
 
+        public void SubmitData(string dataAsString)
+        {
+            submitData(dataAsString);
+        }
+
         void submitData(string dataAsString)
         {
             string jsMessage = string.Format("{0}('{1}');", SUBMIT_FUNC, dataAsString);
