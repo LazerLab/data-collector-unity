@@ -16,6 +16,10 @@ function receiveEvent(event)
      {
           handleSubmitEvent(event.data);
      }
+     else if(isCompleteEvent(event.data))
+     {
+          completeExperiment();
+     }
 }
 
 function handleFetchEvent(eventData)
