@@ -45,4 +45,9 @@ function fetch(key, gameObject, callbackFunction)
      parent.window.postMessage(FETCH_KEY + JOIN_CHAR + key, "*");
 }
 
+function completeExperiment()
+{
+     parent.window.postMessage(COMPLETE_KEY, "*");
+}
+
 window.addEventListener("message", receiveEvent, false);
