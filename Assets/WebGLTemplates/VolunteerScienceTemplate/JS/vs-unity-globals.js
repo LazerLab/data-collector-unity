@@ -8,6 +8,7 @@ var SUBMIT_KEY = "vs_submit";
 var COMPLETE_KEY = "vs_complete";
 var SET_KEY = "vs_set";
 var ROUND_KEY = "vs_round";
+var ID_KEY = "vs_id";
 var JOIN_CHAR = ":";
 
 function isFetchEvent(eventData)
