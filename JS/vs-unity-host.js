@@ -36,16 +36,16 @@ function handleSetEvent(event)
 
 function trySetRound(event)
 {
-     var roundIdStr = event.data.split(JOIN_CHAR[2]);
+     var roundIdStr = event.data.split(JOIN_CHAR)[2];
           try
           {
                var roundId = parseInt(roundIdStr);
                setRound(roundId);
                return true;
           }
-          catch
+          catch(e)
           {
-               console.error("Unable to parse " + roundIdStr + " to integer");
+               console.error(e + "Unable to parse " + roundIdStr + " to integer");
                return false;
           }
 }
