@@ -11,11 +11,17 @@ namespace VolunteerScience
     public class ExperimentController : Singleton<ExperimentController>
     {
         const string COMPLETE_EXPERIMENT_FUNC = "completeExperiment";
+		const string SET_ROUND_FUNC = "setRound";
 
         public void CompleteExperiment()
         {
             Application.ExternalCall(COMPLETE_EXPERIMENT_FUNC);
         }
+
+		public void SetRound(int roundId)
+		{
+			Application.ExternalCall(SET_ROUND_FUNC, roundId);
+		}
 
     }
 

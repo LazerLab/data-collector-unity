@@ -1,6 +1,8 @@
 var FETCH_KEY = "vs_fetch";
 var SUBMIT_KEY = "vs_submit";
 var COMPLETE_KEY = "vs_complete";
+var SET_KEY = "vs_set";
+var ROUND_KEY = "vs_round";
 var JOIN_CHAR = ":";
 
 function isFetchEvent(eventData)
@@ -16,4 +18,14 @@ function isSubmitEvent(eventData)
 function isCompleteEvent(eventData)
 {
 	return eventData == COMPLETE_KEY;
+}
+
+function isSetEvent(eventData)
+{
+	return eventData.includes(SET_KEY);
+}
+
+function isRoundEvent(eventData)
+{
+	return eventData.includes(ROUND_KEY);
 }
