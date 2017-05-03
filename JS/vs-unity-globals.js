@@ -1,3 +1,8 @@
+/**
+ * @author: Isaiah Mann
+ * @desc: Contains global variables which are used on both the player and host logic for integrating Unity with Volunteer Science
+ */
+
 var FETCH_KEY = "vs_fetch";
 var SUBMIT_KEY = "vs_submit";
 var COMPLETE_KEY = "vs_complete";
