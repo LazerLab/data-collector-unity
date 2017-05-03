@@ -32,14 +32,29 @@ namespace VolunteerScience
 
         #endregion
 
+        bool hasCustomFetchCall
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(customFetchCall);
+            }
+        }
+
         Action<object> callback;
         string key;
+        string customFetchCall = string.Empty;
         GameObject callbackObj;
 
         public VariableFetchAction(string key, Action<object> callback)
         {
-            setup(key);
-            this.callback = callback;
+            setup(key, callback);
+            run();
+        }
+
+        public VariableFetchAction(string key, Action<object> callback, string customFetchFunction)
+        {
+            setup(key, callback);
+            this.customFetchCall = customFetchFunction;
             run();
         }
 
@@ -85,6 +100,12 @@ namespace VolunteerScience
             this.IsComplete = false;
         }
 
+        void setup(string key, Action<object> callback)
+        {
+            setup(key);
+            this.callback = callback;
+        }
+
         /*
          * Should generate a call in the following format
          * SendMessage([GameObject Name], 'Receive', variables['key']);
@@ -97,7 +118,7 @@ namespace VolunteerScience
                 receiver.name,
                 RECEIVE_FUNC);
         }
-
+            
         GameObject createObject()
         {
             GameObject receiverObj = new GameObject();

@@ -6,12 +6,15 @@
 
 namespace VolunteerScience
 {
+    using System;
+
     using UnityEngine;
 
     public class ExperimentController : Singleton<ExperimentController>
     {
         const string COMPLETE_EXPERIMENT_FUNC = "completeExperiment";
 		const string SET_ROUND_FUNC = "setRound";
+        const string ROUND_KEY = "vs_round";
 
         public void CompleteExperiment()
         {
@@ -22,6 +25,11 @@ namespace VolunteerScience
 		{
 			Application.ExternalCall(SET_ROUND_FUNC, roundId);
 		}
+
+        public IntFetchAction GetRound(Action<int> callback)
+        {
+            return VariableFetcher.Get.GetInt(ROUND_KEY, callback);
+        }
 
     }
 

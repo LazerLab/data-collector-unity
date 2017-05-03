@@ -54,7 +54,15 @@ function handleFetchEvent(eventData)
 {
      // Get the key
      var dataKey = eventData.split(JOIN_CHAR)[1];
-     var value = variables[dataKey];
+     var value;
+     if(dataKey == ROUND_KEY)
+     {
+          value = currentRound;
+     }
+     else
+     {
+          value = variables[dataKey];
+     }
      // Wildcard value for source:
      gameWindow.postMessage(FETCH_KEY + JOIN_CHAR + dataKey + JOIN_CHAR + value, "*");
 }

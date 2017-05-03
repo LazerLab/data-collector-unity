@@ -47,6 +47,7 @@ public class FetchVariableTest : MonoBehaviour
         fetcher.GetIntList(testIntList, sumInts);
         fetcher.GetBoolList(testBoolList, andBools);
         fetcher.GetFloatList(testFloatList, sumFloats);
+        ExperimentController.Get.GetRound(printRound);
 	}
 
     void printValue(object value)
@@ -112,6 +113,11 @@ public class FetchVariableTest : MonoBehaviour
         toPrint = toPrint.TrimEnd(new char[]{',', ' '});
         toPrint += "]";
         Debug.Log(toPrint);
+    }
+
+    void printRound(int round)
+    {
+        Debug.Log("The round is " + round);
     }
 
 }

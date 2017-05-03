@@ -101,7 +101,7 @@ Prefab:
     - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
         type: 2}
       propertyPath: variables.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4165695874094130, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
       propertyPath: m_LocalPosition.x
@@ -214,6 +214,16 @@ Prefab:
         type: 2}
       propertyPath: variables.Array.data[7].value
       value: FALSE, true, TRUE, false, FALSE
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[8].key
+      value: vs_round
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748781832955484, guid: 9a6533a3418cb469caa91121e39d3fea,
+        type: 2}
+      propertyPath: variables.Array.data[8].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a6533a3418cb469caa91121e39d3fea, type: 2}
@@ -336,6 +346,10 @@ MonoBehaviour:
   testInt: testInt
   testFloat: testFloat
   testBool: testBool
+  testValueList: testValueList
+  testIntList: testIntList
+  testBoolList: testBoolList
+  testFloatList: testFloatList
 --- !u!4 &2144802934
 Transform:
   m_ObjectHideFlags: 0
