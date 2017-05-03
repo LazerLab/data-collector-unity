@@ -20,6 +20,34 @@ function receiveEvent(event)
      {
           experimentComplete();
      }
+     else if(isSetEvent(event.data))
+     {
+          handleSetEvent(event);
+     }
+}
+
+function handleSetEvent(event)
+{
+     if(isRoundEvent(event.data))
+     {
+          trySetRound(event);
+     }
+}
+
+function trySetRound(event)
+{
+     var roundIdStr = event.data.split(JOIN_CHAR[2]);
+          try
+          {
+               var roundId = parseInt(roundIdStr);
+               setRound(roundId);
+               return true;
+          }
+          catch
+          {
+               console.error("Unable to parse " + roundIdStr + " to integer");
+               return false;
+          }
 }
 
 function handleFetchEvent(eventData)

@@ -50,4 +50,9 @@ function completeExperiment()
      parent.window.postMessage(COMPLETE_KEY, "*");
 }
 
+function setRound(roundId)
+{
+     parent.window.postMessage(SET_KEY + JOIN_CHAR + ROUND_KEY + JOIN_CHAR + roundId, "*");
+}
+
 window.addEventListener("message", receiveEvent, false);
