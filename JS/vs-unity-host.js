@@ -18,7 +18,7 @@ function receiveEvent(event)
      }
      else if(isCompleteEvent(event.data))
      {
-          completeExperiment();
+          experimentComplete();
      }
 }
 
