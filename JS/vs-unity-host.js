@@ -85,5 +85,10 @@ function setGameWindow()
      gameWindow = document.getElementById("game").contentWindow;
 }
 
+function initialize()
+{
+     gameWindow.postMessage(INIT_KEY, "*");
+}
+
 window.onload = setGameWindow;
 window.addEventListener('message', receiveEvent, false);

@@ -17,6 +17,26 @@ namespace VolunteerScience
         const string ROUND_KEY = "vs_round";
 		const string SEED_KEY = "vs_seed";
 
+		Action onInitialize;
+
+		public void Initialize()
+		{
+			if(onInitialize != null)
+			{
+				onInitialize();
+			}
+		}
+
+		public void SubscribeToInitialize(Action callback)
+		{
+			onInitialize += callback;
+		}
+
+		public void UnsubscribeFromInitialize(Action callback)
+		{
+			onInitialize -= callback;
+		}
+
         public void CompleteExperiment()
         {
             Application.ExternalCall(COMPLETE_EXPERIMENT_FUNC);
