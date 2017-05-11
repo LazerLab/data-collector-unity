@@ -10,6 +10,7 @@ var SET_KEY = "vs_set";
 var ROUND_KEY = "vs_round";
 var PLAYER_ID_KEY = "vs_player_id";
 var SEED_KEY = "vs_seed";
+var INIT_KEY = "vs_init";
 
 var JOIN_CHAR = ":";
 
@@ -46,4 +47,9 @@ function isPlayerIDEvent(eventData)
 function isSeedEvent(eventData)
 {
      return eventData.includes(SEED_KEY);
+}
+
+function isInitEvent(eventData)
+{
+     return eventData.includes(INIT_KEY);
 }

@@ -4,7 +4,10 @@
  * @requires: vs-unity-globals.js, both scripts should be added as a script to the index.html of the WebGL build
  */
 
- unityFetchCallbacks = {};
+var MESSAGE_RECEIVER_GAME_OBJECT = "VSReceiver";
+var INIT_FUNC = "Initialize";
+
+unityFetchCallbacks = {};
 
 class UnityCallback
 {
@@ -20,6 +23,10 @@ class UnityCallback
       if(isFetchEvent(event.data))
       {
            handleFetchEventCallback(event.data);
+      }
+      else if(isInitEvent(event.data))
+      {
+           initialize();
       }
  }
 
@@ -53,6 +60,11 @@ function completeExperiment()
 function setRound(roundId)
 {
      parent.window.postMessage(SET_KEY + JOIN_CHAR + ROUND_KEY + JOIN_CHAR + roundId, "*");
+}
+
+function initialize()
+{
+     SendMessage(MESSAGE_RECEIVER_GAME_OBJECT, INIT_FUNC);
 }
 
 window.addEventListener("message", receiveEvent, false);
