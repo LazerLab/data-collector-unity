@@ -6,8 +6,18 @@
 
 namespace VolunteerScience
 {	
+	using UnityEngine;
+
 	public class MessageReceiver : Singleton<MessageReceiver>
 	{
+		const string READY_FUNC = "receiverReady";
+
+		protected override void Awake()
+		{
+			base.Awake();
+			Application.ExternalCall(READY_FUNC);
+		}
+
 		public void Initialize()
 		{
 			ExperimentController.Get.Initialize();
