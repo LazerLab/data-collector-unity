@@ -64,7 +64,14 @@ function setRound(roundId)
 
 function initialize()
 {
-     SendMessage(MESSAGE_RECEIVER_GAME_OBJECT, INIT_FUNC);
+     if(typeof(SendMessage) === typeof(Function))
+     {
+          SendMessage(MESSAGE_RECEIVER_GAME_OBJECT, INIT_FUNC);
+     }
+     else
+     {
+          window.setTimeout(initialize, 100);
+     }
 }
 
 window.addEventListener("message", receiveEvent, false);
