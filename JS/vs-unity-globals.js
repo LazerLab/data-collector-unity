@@ -8,7 +8,9 @@ var SUBMIT_KEY = "vs_submit";
 var COMPLETE_KEY = "vs_complete";
 var SET_KEY = "vs_set";
 var ROUND_KEY = "vs_round";
-var ID_KEY = "vs_id";
+var PLAYER_ID_KEY = "vs_player_id";
+var SEED_KEY = "vs_seed";
+
 var JOIN_CHAR = ":";
 
 function isFetchEvent(eventData)
@@ -34,4 +36,14 @@ function isSetEvent(eventData)
 function isRoundEvent(eventData)
 {
 	return eventData.includes(ROUND_KEY);
+}
+
+function isPlayerIDEvent(eventData)
+{
+     return eventData.includes(PLAYER_ID_KEY);
+}
+
+function isSeedEvent(eventData)
+{
+     return eventData.includes(SEED_KEY);
 }

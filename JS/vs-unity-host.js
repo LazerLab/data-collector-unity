@@ -55,9 +55,17 @@ function handleFetchEvent(eventData)
      // Get the key
      var dataKey = eventData.split(JOIN_CHAR)[1];
      var value;
-     if(dataKey == ROUND_KEY)
+     if(isRoundEvent(dataKey))
      {
           value = currentRound;
+     }
+     else if(isPlayerIDEvent(dataKey))
+     {
+          value = myid;
+     }
+     else if(isSeedEvent(dataKey))
+     {
+          value = seed;
      }
      else
      {
