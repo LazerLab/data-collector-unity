@@ -4,8 +4,10 @@
  * @requires: vs-unity-globals.js, iFrame should have id of "game"
  */
 
+// A reference to the iFrame in which the Unity WebGL player is embedded
 var gameWindow;
 
+// Handles a message passed to the page with the postMessage function
 function receiveEvent(event)
 {
      if(isFetchEvent(event.data))
@@ -26,6 +28,7 @@ function receiveEvent(event)
      }
 }
 
+// Used for events sent from the Unity Player to set a variable in Volunteer Science
 function handleSetEvent(event)
 {
      if(isRoundEvent(event.data))
@@ -34,27 +37,32 @@ function handleSetEvent(event)
      }
 }
 
+// Attempts to set the round of the experiment
 function trySetRound(event)
 {
+     // Expects the third part of the message to be the new integer
      var roundIdStr = event.data.split(JOIN_CHAR)[2];
-          try
-          {
-               var roundId = parseInt(roundIdStr);
-               setRound(roundId);
-               return true;
-          }
-          catch(e)
-          {
-               console.error(e + "Unable to parse " + roundIdStr + " to integer");
-               return false;
-          }
+     // Returns true if the round was successfully set
+     try
+     {
+          var roundId = parseInt(roundIdStr);
+          setRound(roundId);
+          return true;
+     }
+     catch(e)
+     {
+          console.error(e + "Unable to parse " + roundIdStr + " to integer");
+          return false;
+     }
 }
 
+// Fetch events are cases in which the Unity player is requested information from Volunteer Science
 function handleFetchEvent(eventData)
 {
-     // Get the key
+     // The data returned is based on the key associated with the request
      var dataKey = eventData.split(JOIN_CHAR)[1];
      var value;
+     // Checks for specific experiment parameter keys
      if(isRoundEvent(dataKey))
      {
           value = currentRound;
@@ -69,26 +77,35 @@ function handleFetchEvent(eventData)
      }
      else
      {
+          // If the key is not a special experiment variable, get the value from custom experiment variables dictionary:
           value = variables[dataKey];
      }
-     // Wildcard value for source:
+     // Wildcard value for source (*)
+     // Sends the key and corresponding value back to the Unity Player
      gameWindow.postMessage(FETCH_KEY + JOIN_CHAR + dataKey + JOIN_CHAR + value, "*");
 }
 
+// Used to send data to Volunteer Science via a submit call
 function handleSubmitEvent(eventData)
 {
      submit(eventData.split(JOIN_CHAR)[1]);
 }
 
+// Assigns the iFrame to a variable
 function setGameWindow()
 {
      gameWindow = document.getElementById("game").contentWindow;
 }
 
+// Called by Volunteer Science. Sends a message to Unity to run the contained Initialize() function
+// This function can be subscribed to within Unity, to run callbacks when it receives this message
 function initialize()
 {
      gameWindow.postMessage(INIT_KEY, "*");
 }
 
+// Wait until the page loads to set the reference to the iFrame
 window.onload = setGameWindow;
+
+// Subscribe the event handler for when the page receives a message via postMessage()
 window.addEventListener('message', receiveEvent, false);
