@@ -12,7 +12,6 @@ var ROUND_KEY = "vs_round";
 var PLAYER_ID_KEY = "vs_player_id";
 var PLAYER_NAME_KEY = "vs_player_name";
 var PLAYER_COUNT_KEY = "vs_player_count";
-
 var SEED_KEY = "vs_seed";
 var INIT_KEY = "vs_init";
 
