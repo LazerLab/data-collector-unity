@@ -63,7 +63,7 @@ function submit(data)
 // Retrieves a variable corresponding to a particular key from Volunteer Science
 function fetch(key, gameObject, callbackFunction)
 {
-     unityFetchCallbacks[key] = new UnityCallback(gameObject, callbackFunction);
+     unityFetchCallbacks[key.split(JOIN_CHAR)[0]] = new UnityCallback(gameObject, callbackFunction);
      parent.window.postMessage(FETCH_KEY + JOIN_CHAR + key, "*");
 }
 
