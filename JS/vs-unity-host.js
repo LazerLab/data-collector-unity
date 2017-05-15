@@ -88,9 +88,12 @@ function handleFetchEvent(eventData)
           // If the key is not a special experiment variable, get the value from custom experiment variables dictionary:
           value = variables[dataKey];
      }
-     // Wildcard value for source (*)
-     // Sends the key and corresponding value back to the Unity Player
-     gameWindow.postMessage(FETCH_KEY + JOIN_CHAR + dataKey + JOIN_CHAR + value, "*");
+     if(value != null)
+     {
+          // Wildcard value for source (*)
+          // Sends the key and corresponding value back to the Unity Player
+          gameWindow.postMessage(FETCH_KEY + JOIN_CHAR + dataKey + JOIN_CHAR + value, "*");
+     }
 }
 
 function getPlayerName(playerNameKey)

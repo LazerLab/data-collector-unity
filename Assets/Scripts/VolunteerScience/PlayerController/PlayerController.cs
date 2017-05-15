@@ -13,7 +13,7 @@ namespace VolunteerScience
 	{
 		const string PLAYER_ID_KEY = "vs_player_id";
 		const string PLAYER_NAME_KEY = "vs_player_name";
-		const string PLAYER_COUNT_KEY = "vs_num_players";
+		const string PLAYER_COUNT_KEY = "vs_player_count";
 
 		public IntFetchAction GetPlayerCount(Action<int> callback)
 		{
