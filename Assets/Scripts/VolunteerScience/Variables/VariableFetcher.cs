@@ -13,6 +13,8 @@ namespace VolunteerScience
 
     public class VariableFetcher : Singleton<VariableFetcher>
     {
+		char JOIN_CHAR = ':';
+
         public VariableFetchAction GetValue(string key, Action<object> callback)
         {
             return new VariableFetchAction(key, callback);
@@ -57,6 +59,11 @@ namespace VolunteerScience
         {
             return new BoolListFetchAction(key, callback);
         }
+
+		public string FormatFetchCall(params string[] subKeys)
+		{
+			return string.Join(JOIN_CHAR.ToString(), subKeys);
+		}
 
     }
         

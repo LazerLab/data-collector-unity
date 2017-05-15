@@ -71,6 +71,14 @@ function handleFetchEvent(eventData)
      {
           value = myid;
      }
+     else if(isPlayerNameEvent(dataKey))
+     {
+          value = getPlayerName(eventData);
+     }
+     else if(isPlayerCountEvent(dataKey))
+     {
+          value = numPlayers;
+     }
      else if(isSeedEvent(dataKey))
      {
           value = seed;
@@ -83,6 +91,22 @@ function handleFetchEvent(eventData)
      // Wildcard value for source (*)
      // Sends the key and corresponding value back to the Unity Player
      gameWindow.postMessage(FETCH_KEY + JOIN_CHAR + dataKey + JOIN_CHAR + value, "*");
+}
+
+function getPlayerName(playerNameKey)
+{
+     var playerID = eventData.split(JOIN_CHAR)[2];
+     var playerName;
+     try
+     {
+          playerName = getName(parseInt(playerID));
+     }
+     catch(e)
+     {
+          console.error(e + "unable to parse player ID" + playerID + " to integer. Returning empty string for player name");
+          playerName = "";
+     }
+     return playerName;
 }
 
 // Used to send data to Volunteer Science via a submit call
