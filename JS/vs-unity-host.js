@@ -95,7 +95,7 @@ function handleFetchEvent(eventData)
 
 function getPlayerName(playerNameKey)
 {
-     var playerID = eventData.split(JOIN_CHAR)[2];
+     var playerID = playerNameKey.split(JOIN_CHAR)[2];
      var playerName;
      try
      {
