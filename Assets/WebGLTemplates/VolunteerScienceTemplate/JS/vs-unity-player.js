@@ -12,7 +12,7 @@ var RECEIVER_WAIT_TIME = 100;
 
 // A dictionary of callbacks to run when a requested variable is returned by Volunteer Science
 var unityFetchCallbacks = {};
-
+var fetchCount = 0;
 
 // Values used to indicate the status of the Message Receiver object within Unity
 var receiverIsReady = false;
@@ -48,8 +48,9 @@ function handleFetchEventCallback(eventData)
      // Should return: ["vs_fetch", key, value]
      var message = eventData.split(JOIN_CHAR);
      var key = message[1];
-     var value = message[2];
-     var callback = unityFetchCallbacks[key];
+     var id = message[2];
+     var value = message[3];
+     var callback = unityFetchCallbacks[key + id];
      // Unity defined function:
      SendMessage(callback.gameObject, callback.callbackFunction, value);
 }
@@ -63,8 +64,25 @@ function submit(data)
 // Retrieves a variable corresponding to a particular key from Volunteer Science
 function fetch(key, gameObject, callbackFunction)
 {
-     unityFetchCallbacks[key.split(JOIN_CHAR)[0]] = new UnityCallback(gameObject, callbackFunction);
-     parent.window.postMessage(FETCH_KEY + JOIN_CHAR + key, "*");
+     var callbackKey = getCallbackKey(key);
+     var args;
+     if(key.includes(JOIN_CHAR))
+     {
+          args = key.split(JOIN_CHAR, 1);
+     }
+     else
+     {
+          args = "";
+     }
+     unityFetchCallbacks[callbackKey] = new UnityCallback(gameObject, callbackFunction);
+     parent.window.postMessage(FETCH_KEY + JOIN_CHAR + callbackKey + JOIN_CHAR + args, "*");
+}
+
+function getCallbackKey(fetchKey)
+{
+     var key = fetchKey.split(JOIN_CHAR)[0] + JOIN_CHAR + fetchCount;
+     fetchCount++;
+     return key;
 }
 
 // To be called when the player completes an experiment in Volunteer Science

@@ -60,7 +60,9 @@ function trySetRound(event)
 function handleFetchEvent(eventData)
 {
      // The data returned is based on the key associated with the request
-     var dataKey = eventData.split(JOIN_CHAR)[1];
+     var args = eventData.split(JOIN_CHAR);
+     var dataKey = args[1];
+     var dataID = args[2];
      var value;
      // Checks for specific experiment parameter keys
      if(isRoundEvent(dataKey))
@@ -92,13 +94,13 @@ function handleFetchEvent(eventData)
      {
           // Wildcard value for source (*)
           // Sends the key and corresponding value back to the Unity Player
-          gameWindow.postMessage(FETCH_KEY + JOIN_CHAR + dataKey + JOIN_CHAR + value, "*");
+          gameWindow.postMessage(FETCH_KEY + JOIN_CHAR + dataKey + JOIN_CHAR + dataID + JOIN_CHAR + value, "*");
      }
 }
 
 function getPlayerName(playerNameKey)
 {
-     var playerID = playerNameKey.split(JOIN_CHAR)[2];
+     var playerID = playerNameKey.split(JOIN_CHAR)[3];
      var playerName;
      try
      {
