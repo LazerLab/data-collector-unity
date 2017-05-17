@@ -45,12 +45,12 @@ function receiveEvent(event)
 // Sends requested data back to Unity fomr a fetch call
 function handleFetchEventCallback(eventData)
 {
-     // Should return: ["vs_fetch", key, value]
+     // Should return: ["vs_fetch", key, id, value]
      var message = eventData.split(JOIN_CHAR);
      var key = message[1];
      var id = message[2];
      var value = message[3];
-     var callback = unityFetchCallbacks[key + id];
+     var callback = unityFetchCallbacks[key + JOIN_CHAR + id];
      // Unity defined function:
      SendMessage(callback.gameObject, callback.callbackFunction, value);
 }
