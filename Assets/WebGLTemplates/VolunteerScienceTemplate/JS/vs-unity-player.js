@@ -68,7 +68,7 @@ function fetch(key, gameObject, callbackFunction)
      var args;
      if(key.includes(JOIN_CHAR))
      {
-          args = key.split(JOIN_CHAR, 1);
+          args = key.split(JOIN_CHAR, 1)[1];
      }
      else
      {
