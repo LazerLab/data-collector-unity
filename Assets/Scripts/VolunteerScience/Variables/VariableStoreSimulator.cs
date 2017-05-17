@@ -1,7 +1,7 @@
 ﻿/*
  * Author(s): Isaiah Mann
- * Description: [to be added]
- * Usage: [no notes]
+ * Description: Used as a testing tool within Unity Editor to simulate returning variables from Volunteer Science
+ * Usage: Only to be used within the Unity Editor, not within builds
  */
 
 namespace VolunteerScience

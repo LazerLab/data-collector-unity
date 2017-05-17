@@ -1,11 +1,10 @@
 ﻿/*
  * Author(s): Isaiah Mann
- * Description: [to be added]
+ * Description: Tests the timer function in the Experiment class
  * Usage: [no notes]
  */
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using VolunteerScience;
 

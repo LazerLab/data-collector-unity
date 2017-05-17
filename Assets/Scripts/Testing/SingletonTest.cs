@@ -1,11 +1,9 @@
 ﻿/*
  * Author(s): Isaiah Mann
- * Description: [to be added]
+ * Description: Verifies calling the Get accessor creates a singleton
  * Usage: [no notes]
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using VolunteerScience;
 

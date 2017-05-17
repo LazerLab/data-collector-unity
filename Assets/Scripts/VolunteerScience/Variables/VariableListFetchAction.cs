@@ -14,6 +14,7 @@ namespace VolunteerScience
     // In order to parse a list of variables, we need to convert to a string, so assume these value should already be strings
     public class VariableListFetchAction : VariableFetchAction
     {
+		// Expects commas to separate items in a list
         const char DIVIDER_CHAR = ',';
 
         #region Instance Accessors
@@ -37,6 +38,7 @@ namespace VolunteerScience
         // Empty constructor for subclasses
         protected VariableListFetchAction(string key) : base(key){}
 
+		// The callback returns a single string which needs to be converted into a list
         public override void RunCallback(object value)
         {
             string[] valueList = parseValueList(value);
@@ -50,6 +52,7 @@ namespace VolunteerScience
             string[] values = valueStr.Split(DIVIDER_CHAR);
             for(int i = 0; i < values.Length; i++)
             {
+				// Removes an spaces between each list item
                 values[i] = values[i].Trim();
             }
             return values;
@@ -86,6 +89,7 @@ namespace VolunteerScience
             {
                 try
                 {
+					// Parse each string value to a float
                     parsedValues[i] = float.Parse(valueList[i]);
                 }
                 catch
@@ -132,6 +136,7 @@ namespace VolunteerScience
             {
                 try
                 {
+					// Parse each string value to an integer
                     parsedValues[i] = int.Parse(valueList[i]);
                 }
                 catch
@@ -177,6 +182,7 @@ namespace VolunteerScience
             {
                 try
                 {
+					// Parse each string value to a boolean
                     parsedValues[i] = bool.Parse(valueList[i]);
                 }
                 catch

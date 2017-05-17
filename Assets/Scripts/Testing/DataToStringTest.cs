@@ -1,11 +1,9 @@
 ﻿/*
  * Author(s): Isaiah Mann
- * Description: [to be added]
+ * Description: Tests converting a data row to a string
  * Usage: [no notes]
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using VolunteerScience;
 
