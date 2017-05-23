@@ -14,6 +14,7 @@ var PLAYER_NAME_KEY = "vs_player_name";
 var PLAYER_COUNT_KEY = "vs_player_count";
 var SEED_KEY = "vs_seed";
 var INIT_KEY = "vs_init";
+var CONSUMABLES_KEY = "vs_consumables";
 
 // Multipart messages passed to the Volunteer Science host are separated by this char:
 // e.g. "part1:part2:part3"
@@ -79,4 +80,10 @@ function isSeedEvent(eventData)
 function isInitEvent(eventData)
 {
      return eventData.includes(INIT_KEY);
+}
+
+// Functions related to consumables
+function isConsumablesEvent(eventData)
+{
+     return eventData.includes(CONSUMABLES_KEY);
 }

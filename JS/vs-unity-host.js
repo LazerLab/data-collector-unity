@@ -85,6 +85,10 @@ function handleFetchEvent(eventData)
      {
           value = seed;
      }
+     else if(isConsumablesEvent(dataKey))
+     {
+          value = getConsumables(eventData);
+     }
      else
      {
           // If the key is not a special experiment variable, get the value from custom experiment variables dictionary:
@@ -118,6 +122,12 @@ function getPlayerName(playerNameKey)
 function handleSubmitEvent(eventData)
 {
      submit(eventData.split(JOIN_CHAR)[1]);
+}
+
+// Fetches list of consumables from an event key
+function getConsumables(eventData)
+{
+     // Expected format: []
 }
 
 // Assigns the iFrame to a variable

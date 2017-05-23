@@ -13,7 +13,10 @@ namespace VolunteerScience
 
     public class VariableFetcher : Singleton<VariableFetcher>
     {
-		char JOIN_CHAR = ':';
+		const string CONSUMABLE_KEY = "vs_consumables";
+		const string SET_CONSUMABLES_FUNC = "setConsumables";
+
+		const char JOIN_CHAR = ':';
 
         public VariableFetchAction GetValue(string key, Action<object> callback)
         {
@@ -45,6 +48,16 @@ namespace VolunteerScience
             return new VariableListFetchAction(key, callback);
         }
 
+		public VariableListFetchAction GetConsumables(string consumableClass, string consumableSet, int amount, Action<string[]> callback)
+		{
+			return new VariableListFetchAction(getConsumablesKey(consumableClass, consumableSet, amount), callback);
+		}
+
+		public void SetConsumables(string consumableClass, string consumableSet, string usedConsumable)
+		{
+			Application.ExternalCall(SET_CONSUMABLES_FUNC, consumableClass, consumableSet, usedConsumable);
+		}
+
         public FloatListFetchAction GetFloatList(string key, Action<float[]> callback)
         {
             return new FloatListFetchAction(key, callback);
@@ -63,6 +76,11 @@ namespace VolunteerScience
 		public string FormatFetchCall(params string[] subKeys)
 		{
 			return string.Join(JOIN_CHAR.ToString(), subKeys);
+		}
+
+		string getConsumablesKey(string consumableClass, string consumableSet, int amount)
+		{
+			return string.Format("{1}{0}{2}{0}{3}{0}{4}", JOIN_CHAR, CONSUMABLE_KEY, consumableClass, consumableSet, amount);
 		}
 
     }
