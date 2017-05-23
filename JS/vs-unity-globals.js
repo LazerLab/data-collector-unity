@@ -15,6 +15,7 @@ var PLAYER_COUNT_KEY = "vs_player_count";
 var SEED_KEY = "vs_seed";
 var INIT_KEY = "vs_init";
 var CONSUMABLES_KEY = "vs_consumables";
+var SET_CONSUMABLES_KEY = "vs_set_consumables";
 
 // Multipart messages passed to the Volunteer Science host are separated by this char:
 // e.g. "part1:part2:part3"
@@ -82,8 +83,26 @@ function isInitEvent(eventData)
      return eventData.includes(INIT_KEY);
 }
 
-// Functions related to consumables
-function isConsumablesEvent(eventData)
+// Functions related to getting consumables
+function isGetConsumablesEvent(eventData)
 {
      return eventData.includes(CONSUMABLES_KEY);
+}
+
+// Functions related to setting consumables
+function isSetConsumablesEvent(eventData)
+{
+     return eventData.includes(SET_CONSUMABLES_KEY);
+}
+
+// Takes in an array of arguments and joins them with the JOIN_CHAR
+function formatArguments(arguments)
+{
+     return arguments.join(JOIN_CHAR);
+}
+
+// Parses a string into a list of arguments
+function parseArguments(argumentsStr)
+{
+     return argumentsStr.split(JOIN_CHAR);
 }

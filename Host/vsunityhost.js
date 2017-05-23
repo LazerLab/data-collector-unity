@@ -26,6 +26,10 @@ function receiveEvent(event)
      {
           handleSetEvent(event);
      }
+     else if(isSetConsumablesEvent(event.data))
+     {
+          handleSetConsumablesEvent(event.data);
+     }
 }
 
 // Used for events sent from the Unity Player to set a variable in Volunteer Science
@@ -85,6 +89,10 @@ function handleFetchEvent(eventData)
      {
           value = seed;
      }
+     else if(isGetConsumablesEvent(dataKey))
+     {
+          value = fetchConsumables(eventData);
+     }
      else
      {
           // If the key is not a special experiment variable, get the value from custom experiment variables dictionary:
@@ -118,6 +126,31 @@ function getPlayerName(playerNameKey)
 function handleSubmitEvent(eventData)
 {
      submit(eventData.split(JOIN_CHAR)[1]);
+}
+
+// Fetches list of consumables from an event key
+function fetchConsumables(eventData)
+{
+     // Expected format: [vs_consumables:<class>:<set>:<amount>]
+     var arguments = eventData.split(JOIN_CHAR);
+     try
+     {
+          var amount = parseInt(arguments[3]);
+          return getConsumables(arguments[1], arguments[2], amount);
+     }
+     catch(e)
+     {
+          console.error("Unable to parse amount from " + arguments[3] + ". Returning empty string");
+          return "";
+     }
+}
+
+// Sets a consumable to used
+function handleSetConsumablesEvent(eventData)
+{
+     // Expected format: [vs_set_consumables:<class>:<set>:<choice>]
+     var arguments = parseArguments(eventData);
+     setConsumables(arguments[1], arguments[2], arguments[3]);
 }
 
 // Assigns the iFrame to a variable
