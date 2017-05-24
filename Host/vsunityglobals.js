@@ -15,7 +15,7 @@ var PLAYER_COUNT_KEY = "vs_player_count";
 var SEED_KEY = "vs_seed";
 var INIT_KEY = "vs_init";
 var CONSUMABLES_KEY = "vs_consumables";
-var SET_CONSUMABLES_KEY = "vs_set_consumables";
+var SET_CONSUMABLES_KEY = "vs_use_consumables";
 
 // Multipart messages passed to the Volunteer Science host are separated by this char:
 // e.g. "part1:part2:part3"

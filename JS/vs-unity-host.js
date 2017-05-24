@@ -91,7 +91,9 @@ function handleFetchEvent(eventData)
      }
      else if(isGetConsumablesEvent(dataKey))
      {
-          value = fetchConsumables(eventData);
+          // Terminate function early, this fetch requires a callback
+          fetchConsumables(eventData);
+       	  return;
      }
      else
      {
@@ -102,8 +104,13 @@ function handleFetchEvent(eventData)
      {
           // Wildcard value for source (*)
           // Sends the key and corresponding value back to the Unity Player
-          gameWindow.postMessage(FETCH_KEY + JOIN_CHAR + dataKey + JOIN_CHAR + dataID + JOIN_CHAR + value, "*");
+          sendDataToGame(dataKey, dataID, value);
      }
+}
+
+function sendDataToGame(dataKey, dataID, value)
+{
+ 	gameWindow.postMessage(FETCH_KEY + JOIN_CHAR + dataKey + JOIN_CHAR + dataID + JOIN_CHAR + value, "*");
 }
 
 function getPlayerName(playerNameKey)
@@ -131,17 +138,23 @@ function handleSubmitEvent(eventData)
 // Fetches list of consumables from an event key
 function fetchConsumables(eventData)
 {
-     // Expected format: [vs_consumables:<class>:<set>:<amount>]
+	 // Expected format: [fetch:<id>:vs_consumables:<class>:<set>:<amount>]
      var arguments = eventData.split(JOIN_CHAR);
+     var dataKey = arguments[1];
+     var dataID = arguments[2];
      try
      {
-          var amount = parseInt(arguments[3]);
-          return getConsumables(arguments[1], arguments[2], amount);
+          var amount = parseInt(arguments[5]);
+          getConsumables(arguments[3], arguments[4], amount,
+                         function(data, err)
+                         {
+			               sendDataToGame(dataKey, dataID, data);
+     				}
+          );
      }
      catch(e)
      {
-          console.error("Unable to parse amount from " + arguments[3] + ". Returning empty string");
-          return "";
+          console.error("Unable to parse amount from " + arguments[3] + ". Unable to get consumable");
      }
 }
 
