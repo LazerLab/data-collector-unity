@@ -68,7 +68,9 @@ function fetch(key, gameObject, callbackFunction)
      var args;
      if(key.includes(JOIN_CHAR))
      {
-          args = key.split(JOIN_CHAR, 2)[1];
+          args = key.split(JOIN_CHAR);
+          args = args.slice(1, args.length);
+          args = args.join(JOIN_CHAR);
      }
      else
      {
@@ -95,6 +97,14 @@ function completeExperiment()
 function setRound(roundId)
 {
      parent.window.postMessage(SET_KEY + JOIN_CHAR + ROUND_KEY + JOIN_CHAR + roundId, "*");
+}
+
+// Sets a consumable used
+function setConsumables(consumablesClass, consumablesSet, consumableChoice)
+{
+     parent.window.postMessage(
+          formatArguments([SET_CONSUMABLES_KEY,
+               consumablesClass, consumablesSet, consumableChoice]), "*");
 }
 
 // Calls Initialize() within Unity upon receiving a message from Volunteer Science
