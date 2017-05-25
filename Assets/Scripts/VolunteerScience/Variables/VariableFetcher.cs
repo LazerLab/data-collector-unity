@@ -14,6 +14,7 @@ namespace VolunteerScience
     public class VariableFetcher : Singleton<VariableFetcher>
     {
 		const string CONSUMABLE_KEY = "vs_consumables";
+		const string MATRIX_KEY = "vs_matrix";
 		const string SET_CONSUMABLES_FUNC = "setConsumables";
 
 		const char JOIN_CHAR = ':';
@@ -56,6 +57,12 @@ namespace VolunteerScience
 		public void SetConsumables(string consumableClass, string consumableSet, string usedConsumable)
 		{
 			Application.ExternalCall(SET_CONSUMABLES_FUNC, consumableClass, consumableSet, usedConsumable);
+		}
+
+		// Row and column values are 1-indexed (NOT zero-indexed)
+		public StringFetchAction GetMatrixValue(string matrix, int row, int column, Action<string> callback)
+		{
+			return new StringFetchAction(FormatFetchCall(MATRIX_KEY, matrix, row.ToString(), column.ToString()), callback);
 		}
 
         public FloatListFetchAction GetFloatList(string key, Action<float[]> callback)

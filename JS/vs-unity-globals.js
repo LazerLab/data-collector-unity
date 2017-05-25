@@ -16,6 +16,7 @@ var SEED_KEY = "vs_seed";
 var INIT_KEY = "vs_init";
 var CONSUMABLES_KEY = "vs_consumables";
 var SET_CONSUMABLES_KEY = "vs_use_consumables";
+var MATRIX_KEY = "vs_matrix";
 
 // Multipart messages passed to the Volunteer Science host are separated by this char:
 // e.g. "part1:part2:part3"
@@ -93,6 +94,12 @@ function isGetConsumablesEvent(eventData)
 function isSetConsumablesEvent(eventData)
 {
      return eventData.includes(SET_CONSUMABLES_KEY);
+}
+
+// Functions related to fetching values from a MATRIX_KEY
+function isMatrixEvent(eventData)
+{
+     return eventData.includes(MATRIX_KEY);
 }
 
 // Takes in an array of arguments and joins them with the JOIN_CHAR

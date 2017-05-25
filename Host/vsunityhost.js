@@ -95,6 +95,10 @@ function handleFetchEvent(eventData)
           fetchConsumables(eventData);
        	  return;
      }
+     else if(isMatrixEvent(dataKey))
+     {
+          value = fetchMatrixValue(eventData);
+     }
      else
      {
           // If the key is not a special experiment variable, get the value from custom experiment variables dictionary:
@@ -133,6 +137,27 @@ function getPlayerName(playerNameKey)
 function handleSubmitEvent(eventData)
 {
      submit(eventData.split(JOIN_CHAR)[1]);
+}
+
+// Used to get a value from a matrix
+function fetchMatrixValue(eventData)
+{
+     // Expected format: [fetch:<id>:vs_matrix:<matrix>:<row>:<column>]
+     var arguments = parseArguments(eventData);
+     var matrix = arguments[3];
+     try
+     {
+          // Row and column values are 1-indexed (NOT zero-indexed)
+          var row = parseInt(arguments[4]);
+          var column = parseInt(arguments[5]);
+          // Uses the volunteer science call to access the desired matrix:
+          return getMatrixValue(matrix, row, column);
+     }
+     catch(e)
+     {
+          console.error(e + "Unable to parse matrix info from " + arguments + ". Returning null.")
+          return null;
+     }
 }
 
 // Fetches list of consumables from an event key
