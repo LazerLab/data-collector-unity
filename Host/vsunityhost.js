@@ -147,7 +147,7 @@ function fetchMatrixValue(eventData)
      var matrix = arguments[3];
      try
      {
-          // Row and column values are 1-indexed (NOT zero-indexed)
+          // Row and column values are zero-indexed
           var row = parseInt(arguments[4]);
           var column = parseInt(arguments[5]);
           // Uses the volunteer science call to access the desired matrix:

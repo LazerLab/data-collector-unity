@@ -59,7 +59,7 @@ namespace VolunteerScience
 			Application.ExternalCall(SET_CONSUMABLES_FUNC, consumableClass, consumableSet, usedConsumable);
 		}
 
-		// Row and column values are 1-indexed (NOT zero-indexed)
+		// Row and column values are zero-indexed
 		public StringFetchAction GetMatrixValue(string matrix, int row, int column, Action<string> callback)
 		{
 			return new StringFetchAction(FormatFetchCall(MATRIX_KEY, matrix, row.ToString(), column.ToString()), callback);
