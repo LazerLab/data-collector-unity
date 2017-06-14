@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a9bc3bc1521485e9d211931aea80f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageURL: https://volunteerscience.com/media/experiment/445/bush1.1.jpg
+  imageURL: bush1.1.jpg
   image: {fileID: 1337674047}
 --- !u!114 &1491078732
 MonoBehaviour:

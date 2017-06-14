@@ -25,7 +25,14 @@ namespace VolunteerScience
 
 		public StringFetchAction GetFileURL(string fileName, Action<string> callback)
 		{
-			return VariableFetcher.Get.GetString(getFileURLFetchCallback(fileName), callback);
+			return VariableFetcher.Get.GetString(getFileURLFetchCallback(fileName), 
+				delegate(string fileURL)
+				{
+					// The VS getFile method returns a relative URL, need to add the Volunteer Science domain
+					string urlWithVolunteerScienceDomain = replaceURLHostName(fileURL);
+					callback(urlWithVolunteerScienceDomain);
+				}
+			);
 		}
 			
 		IEnumerator loadTexture(string url, Action<Sprite> callback)
@@ -43,6 +50,14 @@ namespace VolunteerScience
 		string getFileURLFetchCallback(string fileName)
 		{
 			return VariableFetcher.Get.FormatFetchCall(FILE_URL_KEY, fileName);
+		}
+
+		// Adapated from: https://stackoverflow.com/questions/479799/replace-host-in-uri
+		string replaceURLHostName(string originalURL)
+		{
+			UriBuilder builder = new UriBuilder(originalURL);
+			builder.Host = Global.WEB_DOMAIN;
+			return builder.Uri.ToString();
 		}
 
 	}
