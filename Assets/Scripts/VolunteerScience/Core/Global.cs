@@ -8,7 +8,7 @@ namespace VolunteerScience
 {
 	public static class Global 
 	{
-		public const string WEB_DOMAIN = "https://volunteerscience.com/";
+		public const string WEB_DOMAIN = "https://volunteerscience.com";
 
 	}
 

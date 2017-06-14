@@ -55,9 +55,7 @@ namespace VolunteerScience
 		// Adapated from: https://stackoverflow.com/questions/479799/replace-host-in-uri
 		string replaceURLHostName(string originalURL)
 		{
-			UriBuilder builder = new UriBuilder(originalURL);
-			builder.Host = Global.WEB_DOMAIN;
-			return builder.Uri.ToString();
+			return string.Format("{0}{1}", Global.WEB_DOMAIN, originalURL);
 		}
 
 	}
