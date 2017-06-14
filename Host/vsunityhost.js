@@ -99,6 +99,10 @@ function handleFetchEvent(eventData)
      {
           value = fetchMatrixValue(eventData);
      }
+     else if(isFileURLEvent(dataKey))
+     {
+          value = fetchFileURL(eventData);
+     }
      else
      {
           // If the key is not a special experiment variable, get the value from custom experiment variables dictionary:
@@ -163,7 +167,7 @@ function fetchMatrixValue(eventData)
 // Fetches list of consumables from an event key
 function fetchConsumables(eventData)
 {
-	 // Expected format: [fetch:<id>:vs_consumables:<class>:<set>:<amount>]
+	// Expected format: [fetch:<id>:vs_consumables:<class>:<set>:<amount>]
      var arguments = eventData.split(JOIN_CHAR);
      var dataKey = arguments[1];
      var dataID = arguments[2];
@@ -181,6 +185,15 @@ function fetchConsumables(eventData)
      {
           console.error("Unable to parse amount from " + arguments[3] + ". Unable to get consumable");
      }
+}
+
+// Gets the URL for a file
+function fetchFileURL(eventData)
+{
+     // Expected format: [fetch:<id>:vs_file_url:<file name>]
+     var arguments = parseArguments(eventData);
+     // Uses a VS api call to retrieve the URL
+     return getFile(arguments[3]);
 }
 
 // Sets a consumable to used

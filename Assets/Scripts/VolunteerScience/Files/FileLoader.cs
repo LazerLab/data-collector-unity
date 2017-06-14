@@ -13,11 +13,21 @@ namespace VolunteerScience
 
 	public class FileLoader : Singleton<FileLoader>
 	{
-		public void LoadImage(string url, Action<Sprite> callback)
+		const string FILE_URL_KEY = "vs_file_url";
+
+		public void LoadImage(string fileName, Action<Sprite> callback)
 		{
-			StartCoroutine(loadTexture(url, callback));
+			GetFileURL(fileName, delegate(string fileURL)
+				{
+					StartCoroutine(loadTexture(fileURL, callback));
+				});
 		}
 
+		public StringFetchAction GetFileURL(string fileName, Action<string> callback)
+		{
+			return VariableFetcher.Get.GetString(getFileURLFetchCallback(fileName), callback);
+		}
+			
 		IEnumerator loadTexture(string url, Action<Sprite> callback)
 		{
 			Texture2D texture;
@@ -28,6 +38,11 @@ namespace VolunteerScience
 			Rect textureRect = new Rect(0, 0, texture.width, texture.height);
 			Sprite sprite = Sprite.Create(texture, textureRect, textureRect.center);
 			callback(sprite);
+		}
+
+		string getFileURLFetchCallback(string fileName)
+		{
+			return VariableFetcher.Get.FormatFetchCall(FILE_URL_KEY, fileName);
 		}
 
 	}
