@@ -6,6 +6,10 @@
 
 // A reference to the iFrame in which the Unity WebGL player is embedded
 var gameWindow;
+var loadingWindow;
+var loadingGraphics;
+var loadingAngle = 0;
+var receiverIsReady = false;
 
 // Handles a message passed to the page with the postMessage function
 function receiveEvent(event)
@@ -29,6 +33,10 @@ function receiveEvent(event)
      else if(isSetConsumablesEvent(event.data))
      {
           handleSetConsumablesEvent(event.data);
+     }
+     else if(isReceiverReadyEvent(event.data))
+     {
+          receiverIsReady = true;
      }
 }
 
@@ -204,8 +212,49 @@ function initialize()
      gameWindow.postMessage(INIT_KEY, "*");
 }
 
+function setupLoading()
+{
+     loadingWindow = document.getElementById("loading");
+     loadingGraphics = loadingWindow.getContext("2d");
+     drawLoading();
+}
+
+function drawLoading()
+{
+     var width = 980;
+     var height = 600;
+     loadingWindow.width = width;
+     loadingWindow.height = height;
+     loadingGraphics.clearRect(0, 0, width, height);
+     loadingGraphics.font = 40 + 'px Arial';
+     loadingGraphics.fillStyle = "black";
+     loadingGraphics.fillText("Loading", width / 2 - 75, height / 2 - 150);
+     loadingGraphics.beginPath();
+     loadingGraphics.ellipse(width / 2, height / 2, 100, 100, 0, 0, 2 * Math.PI);
+     loadingGraphics.fill();
+     loadingGraphics.fillStyle = "red";
+     loadingGraphics.beginPath();
+     loadingGraphics.arc(width / 2, height / 2, 100, loadingAngle, loadingAngle + Math.PI);
+     loadingGraphics.fill();
+     loadingAngle += Math.PI / 64;
+     loadingAngle %= Math.PI * 2;
+     if(!receiverIsReady)
+     {
+          window.setTimeout(function(){drawLoading();}, 10);
+     }
+     else
+     {
+          loadingWindow.width = 0;
+          loadingWindow.height = 0;
+          gameWindow.width = 980;
+          gameWindow.height = 600;
+     }
+}
+
 // Wait until the page loads to set the reference to the iFrame
 window.onload = setGameWindow;
 
 // Subscribe the event handler for when the page receives a message via postMessage()
 window.addEventListener('message', receiveEvent, false);
+
+setupLoading();

@@ -2,21 +2,28 @@
   <link href="main.css" rel="stylesheet">
   <style>
        #game {
-            width: 900px;
-            height: 900px;
-			margin: auto;
+            margin: auto;
+            z-index: 1;
+            width: 1px;
+            height: 1px;
        }
-       .template {
-             height: 500px;
+       #loading {
+            z-index: 2;
        }
-		#mainTest {
-			min-height: 500px;
-		}
+       .screen {
+            width: 980px;
+            height: 600px;
+       }
   </style>
 </head>
 <body>
-     <!-- NOTE: This url should be changed to match the hosted location of your Unity WebGL Build -->
-     <iframe id = "game" sandbox = "allow-scripts" src="https://lazerlab.github.io/task-switching-unity/"></iframe>
+    <center>
+        <iframe id = "game"
+        class = "screen"
+        sandbox = "allow-scripts allow-modals"
+        src="https://lazerlab.github.io/task-switching-unity/"></iframe>
+        <canvas id = "loading" class = "screen"></canvas>
+    </center>
 </body>
 
 <script src = "vsunityglobals.js"></script>
