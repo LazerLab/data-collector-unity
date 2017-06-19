@@ -3,15 +3,20 @@
   <link href="main.css" rel="stylesheet">
   <style>
        #game {
-            width: 980px;
-            height: 600px;
-			margin: auto;
+       #loading {
+            z-index: 2;
        }
   </style>
 </head>
 <body>
     <center>
-     	<iframe id = "game" sandbox = "allow-scripts allow-modals" src="https://lazerlab.github.io/task-switching-unity/"></iframe>
+         <!-- NOTE: This url should be changed to match the hosted location of your Unity WebGL Build -->
+        <iframe id = "game"
+        sandbox = "allow-scripts allow-modals"
+        width = "1"
+        height = "1"
+        src = "https://lazerlab.github.io/task-switching-unity/"></iframe>
+        <canvas id = "loading" class = "screen" width = "980" height = "600"></canvas>
     </center>
 </body>
        

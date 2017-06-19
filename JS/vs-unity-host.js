@@ -5,7 +5,14 @@
  */
 
 // A reference to the iFrame in which the Unity WebGL player is embedded
+var gameFrame;
 var gameWindow;
+var loadingWindow;
+var loadingGraphics;
+var loadingAngle = 0;
+var receiverIsReady = false;
+var frameWidth = 980;
+var frameHeight = 600;
 
 // Handles a message passed to the page with the postMessage function
 function receiveEvent(event)
@@ -30,6 +37,11 @@ function receiveEvent(event)
      {
           handleSetConsumablesEvent(event.data);
      }
+     else if(isReceiverReadyEvent(event.data))
+     {
+          receiverIsReady = true;
+     }
+     console.log(event.data);
 }
 
 // Used for events sent from the Unity Player to set a variable in Volunteer Science
@@ -194,14 +206,67 @@ function handleSetConsumablesEvent(eventData)
 // Assigns the iFrame to a variable
 function setGameWindow()
 {
-     gameWindow = document.getElementById("game").contentWindow;
+	 gameFrame = document.getElementById("game");
+     gameWindow = gameFrame.contentWindow;
+	 setupLoading();
 }
 
 // Called by Volunteer Science. Sends a message to Unity to run the contained Initialize() function
 // This function can be subscribed to within Unity, to run callbacks when it receives this message
 function initialize()
 {
-     gameWindow.postMessage(INIT_KEY, "*");
+  	 // Checks if the gameWindow has been initialized yet, and calls the function again if not
+  	 if(gameWindow == null)
+     {
+        window.setTimeout(function(){initialize();}, 100);
+     }
+     else
+     {
+     	gameWindow.postMessage(INIT_KEY, "*");
+     }
+}
+
+function setupLoading()
+{
+     loadingWindow = document.getElementById("loading");
+     loadingGraphics = loadingWindow.getContext("2d");
+     drawLoading();
+  	 // Need to keep iFrame visible or the content will not be loaded:
+     gameFrame.width = 1;
+	 gameFrame.height = 1;
+}
+
+function drawLoading()
+{
+     var width = frameWidth;
+     var height = frameHeight;
+     loadingWindow.width = width;
+     loadingWindow.height = height;
+     loadingGraphics.clearRect(0, 0, width, height);
+     loadingGraphics.font = 40 + 'px Arial';
+     loadingGraphics.fillStyle = "black";
+     loadingGraphics.fillText("Loading", width / 2 - 75, height / 2 - 150);
+     loadingGraphics.beginPath();
+     loadingGraphics.ellipse(width / 2, height / 2, 100, 100, 0, 0, 2 * Math.PI);
+     loadingGraphics.fill();
+     loadingGraphics.fillStyle = "red";
+     loadingGraphics.beginPath();
+     loadingGraphics.arc(width / 2, height / 2, 100, loadingAngle, loadingAngle + Math.PI);
+     loadingGraphics.fill();
+     loadingAngle += Math.PI / 64;
+     loadingAngle %= Math.PI * 2;
+     if(!receiverIsReady)
+     {
+          window.setTimeout(function(){drawLoading();}, 10);
+     }
+     else
+     {
+          loadingWindow.width = 0;
+          loadingWindow.height = 0;
+       	var gameFrame = document.getElementById("game");
+          gameFrame.width = width;
+          gameFrame.height = height;
+     }
 }
 
 // Wait until the page loads to set the reference to the iFrame
