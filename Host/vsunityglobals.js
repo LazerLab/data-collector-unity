@@ -18,6 +18,7 @@ var CONSUMABLES_KEY = "vs_consumables";
 var SET_CONSUMABLES_KEY = "vs_use_consumables";
 var MATRIX_KEY = "vs_matrix";
 var FILE_URL_KEY = "vs_file_url";
+var RECEIVER_READY = "vs_receiver_ready";
 
 // Multipart messages passed to the Volunteer Science host are separated by this char:
 // e.g. "part1:part2:part3"
@@ -107,6 +108,12 @@ function isMatrixEvent(eventData)
 function isFileURLEvent(eventData)
 {
      return eventData.includes(FILE_URL_KEY);
+}
+
+// Function indicates receiver is ready (Unity WebGL has loaded)
+function isReceiverReadyEvent(eventData)
+{
+     return eventData.includes(RECEIVER_READY);
 }
 
 // Takes in an array of arguments and joins them with the JOIN_CHAR
