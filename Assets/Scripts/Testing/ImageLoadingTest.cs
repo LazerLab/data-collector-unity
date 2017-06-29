@@ -12,7 +12,7 @@ using VolunteerScience;
 public class ImageLoadingTest : MonoBehaviour 
 {
 	[SerializeField]
-	string imageURL;
+	string imageName;
 	[SerializeField]
 	Image image;
 
@@ -20,7 +20,7 @@ public class ImageLoadingTest : MonoBehaviour
 	void Start() 
 	{
 		FileLoader files = FileLoader.Get;
-		files.LoadImage(imageURL, setImage);
+		files.LoadImage(imageName, setImage);
 	}
 
 	void setImage(Sprite Sprite)
