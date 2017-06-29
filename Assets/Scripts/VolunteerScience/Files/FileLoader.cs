@@ -19,7 +19,10 @@ namespace VolunteerScience
 		{
 			#if UNITY_EDITOR
 
-			SpriteStoreSimulator.Get.LoadImage(fileName, callback);
+			if(SpriteStoreSimulator.HasInstance)
+			{
+				SpriteStoreSimulator.Get.LoadImage(fileName, callback);
+			}
 
 			#else
 
