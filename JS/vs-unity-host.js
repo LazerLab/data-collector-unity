@@ -41,7 +41,6 @@ function receiveEvent(event)
      {
           receiverIsReady = true;
      }
-     console.log(event.data);
 }
 
 // Used for events sent from the Unity Player to set a variable in Volunteer Science
