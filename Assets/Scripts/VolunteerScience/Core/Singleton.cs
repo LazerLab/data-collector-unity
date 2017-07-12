@@ -3,6 +3,7 @@
  * Description: Defines a singleton MonoBehaviour object (only one can exist at a time)
  * Usage: [no notes]
  */
+
 using UnityEngine;
 
 namespace VolunteerScience
@@ -11,6 +12,7 @@ namespace VolunteerScience
 	{
 		const string INSTANCE_KEY = "Instance";
 
+		// Creates an instance if one does not already exist
 		public static T Get
 		{
 			get
@@ -42,6 +44,7 @@ namespace VolunteerScience
 			return singletonGameObject.AddComponent<T>();
 		}
 
+		// Sets instance if it's currently null
         protected virtual void Awake()
         {
             if(_instance == null)

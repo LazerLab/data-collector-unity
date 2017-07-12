@@ -12,8 +12,10 @@ namespace VolunteerScience
 
     public class VariableStoreSimulator : Singleton<VariableStoreSimulator>
     {
+		// Can be customized in the Unity Inspector
         [SerializeField]
         VSVariable[] variables;
+		// Dictionary to lookup the variables based on their name/key
         Dictionary<string, VSVariable> variableLookup;
 
         #region Singleton Overrides
@@ -26,6 +28,7 @@ namespace VolunteerScience
 
         #endregion
 
+		// Mirrors how the JavaScript player scripts would send a variable back to Unity
         public void SimulateVariableFetch(string key, string objectName, string receiveMethod)
         {
             VSVariable variable;
@@ -36,6 +39,7 @@ namespace VolunteerScience
             }
         }
 
+		// Creates Dictionary lookup up of variables
         void generateVariableLookup()
         {
             this.variableLookup = new Dictionary<string, VSVariable>();
@@ -48,6 +52,7 @@ namespace VolunteerScience
 
     }
 
+	// This class must be serializable in order to be edited within the Unity inspector
     [System.Serializable]
     public class VSVariable
     {

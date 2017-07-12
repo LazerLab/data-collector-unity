@@ -30,7 +30,7 @@ namespace VolunteerScience
 			
 		// Gets the name of the current player
 		// Requires two callbacks, because we need to know the player's ID to get their name
-		// Cannot return an action because the action is not created until the first callback runs
+		// Cannot return an action because the action which returns the name is not created until the first callback runs
 		public void GetName(Action<string> callback)
 		{
 			GetMyID(

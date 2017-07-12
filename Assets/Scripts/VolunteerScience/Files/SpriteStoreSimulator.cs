@@ -13,16 +13,19 @@ namespace VolunteerScience
 
 	public class SpriteStoreSimulator : Singleton<SpriteStoreSimulator>
 	{
+		// Custom Unity field to allow sprites to be assigned in the inspector
 		[SerializeField]
 		Sprite[] sprites;
 
 		Dictionary<string, Sprite> spriteLookup;
 
+		// Searches for a sprite with a matching filename (NOTE: Unity sprites do not use file extensions)
 		public void LoadImage(string fileName, Action<Sprite> callback)
 		{
 			Sprite sprite;
 			if(spriteLookup.TryGetValue(fileName, out sprite))
 			{
+				// Runs the associated callback if the sprite is found
 				callback(sprite);
 			}
 			else
@@ -36,6 +39,7 @@ namespace VolunteerScience
 		protected override void Awake()
 		{
 			base.Awake();
+			// Generates the Dictionary of sprites upon initialization
 			initSpriteLookup();
 		}
 

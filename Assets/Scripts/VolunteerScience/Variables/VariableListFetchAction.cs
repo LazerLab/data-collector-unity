@@ -19,6 +19,7 @@ namespace VolunteerScience
 
         #region Instance Accessors
 
+		// Modify the value field to be a string[] (instead of an object type in the super class)
         public new string[] Value
         {
             get;
@@ -60,6 +61,7 @@ namespace VolunteerScience
 
     }
 
+	// Used to fetch a list of floating point values
     public class FloatListFetchAction : VariableListFetchAction
     {
         #region Instance Accessors
@@ -107,6 +109,7 @@ namespace VolunteerScience
             
     }
 
+	// Used to fetch a list of integer values
     public class IntListFetchAction : VariableListFetchAction
     {
         #region Instance Accessors
@@ -153,6 +156,7 @@ namespace VolunteerScience
         }
     }
 
+	// Used to fetch a list of boolean values
     public class BoolListFetchAction : VariableListFetchAction
     {
         #region Instance Accessors

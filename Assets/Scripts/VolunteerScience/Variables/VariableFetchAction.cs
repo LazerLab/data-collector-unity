@@ -11,19 +11,23 @@ namespace VolunteerScience
 
     using UnityEngine;
 
+	// Represents a single request for a variable from Volunteer Science
     public class VariableFetchAction 
     {
+		// Constants related to Volunteer Science calls
         const string RECEIVE_FUNC = "Receive";
         const string FETCH_FUNC = "fetch";
 
         #region Instance Accessors
 
+		// Indicates whether the action has yet to receive a value back from Volunteer Science
         public bool IsComplete
         {
             get;
             private set;
         }
 
+		// The value sent back by Volunteer Science
         public object Value
         {
             get;
@@ -40,17 +44,20 @@ namespace VolunteerScience
             }
         }
 
+		// The callback to run when the value has been received from Volunteer Science
         Action<object> callback;
         string key;
         string customFetchCall = string.Empty;
         GameObject callbackObj;
 
+		// Immediatelly runs the action on initialization
         public VariableFetchAction(string key, Action<object> callback)
         {
             setup(key, callback);
             run();
         }
-
+			
+		// Overloaded constructor to run a different external call to fetch the variable
         public VariableFetchAction(string key, Action<object> callback, string customFetchFunction)
         {
             setup(key, callback);
@@ -58,11 +65,13 @@ namespace VolunteerScience
             run();
         }
 
+		// For use in subclasses if there is additional logic needed to properly run the fetch action
         protected VariableFetchAction(string key)
         {
             setup(key);
         }
 
+		// To be called when a value has been returned from Volunteer Science
         public virtual void RunCallback(object value)
         {
             callback(value);
@@ -72,7 +81,7 @@ namespace VolunteerScience
         public void Complete()
         {
             this.IsComplete = true;
-            // Garbage Collection: destroy this now unused object
+            // Garbage Collection: destroy this now unused GameObject
             UnityEngine.Object.Destroy(callbackObj);
         }
 
@@ -80,7 +89,9 @@ namespace VolunteerScience
         {
             // Setup GameObject to receiver
             this.callbackObj = createObject();
+			// Format the JavaScript call
             string jsCall = getJSCall(this.key, this.callbackObj);
+			// Make the JavaScript call to the external player script
             Application.ExternalEval(jsCall);
 
             // In Editor simulation of fetching variables from a dictionary lookup:
@@ -119,20 +130,24 @@ namespace VolunteerScience
                 RECEIVE_FUNC);
         }
             
+		// Initializes the GameObject to receive the value returned by Volunteer Science
         GameObject createObject()
         {
             GameObject receiverObj = new GameObject();
-            // Create a random ID for this GO:
+            // Create a random unique ID for this GameObject:
             receiverObj.name = Guid.NewGuid().ToString();
-            // Hide this so it doesn't crowd the scene
+            // Hide this so it doesn't crowd the scene in the Unity Hierarchy
             receiverObj.hideFlags = HideFlags.HideInHierarchy;
+			// Add the custom receiver script to this object
             receiverObj.AddComponent<VariableReceiveHandler>().Set(this);
+			// Instruct the object not to be destroyed if Unity changes scenes
             UnityEngine.Object.DontDestroyOnLoad(receiverObj);
             return receiverObj;
         }
 
     }
 
+	// Custom fetch action which returns a string
     public class StringFetchAction : VariableFetchAction
     {
         #region Instance Accessors
@@ -161,6 +176,7 @@ namespace VolunteerScience
         }
     }
 
+	// Custom fetch action which returns a float
     public class FloatFetchAction : VariableFetchAction
     {
         #region Instance Accessors
@@ -196,6 +212,7 @@ namespace VolunteerScience
         }
     }
 
+	// Custom fetch action which returns an integer
     public class IntFetchAction : VariableFetchAction
     {
         #region Instance Accessors
@@ -231,6 +248,7 @@ namespace VolunteerScience
         }
     }
 
+	// Custom fetch action which returns a boolean
     public class BoolFetchAction : VariableFetchAction
     {
         #region Instance Accessors

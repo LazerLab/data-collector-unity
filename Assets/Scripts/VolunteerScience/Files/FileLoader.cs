@@ -15,16 +15,25 @@ namespace VolunteerScience
 	{
 		const string FILE_URL_KEY = "vs_file_url";
 
+		// Used to load an image from Volunteer Science
 		public void LoadImage(string fileName, Action<Sprite> callback)
 		{
+			// Simulates loading an image
 			#if UNITY_EDITOR
 
 			if(SpriteStoreSimulator.HasInstance)
 			{
+				// Remove the file extension from the file name if it contains one (the Unity Editor does not use filenames when referring to sprites)
+				if(fileName.Contains("."))
+				{
+					fileName = fileName.Split('.')[0];
+				}
 				SpriteStoreSimulator.Get.LoadImage(fileName, callback);
 			}
 
 			#else
+
+			// The real call to fetch an image from Volunteer Science
 
 			GetFileURL(fileName, delegate(string fileURL)
 				{
@@ -34,6 +43,7 @@ namespace VolunteerScience
 			#endif
 		}
 
+		// Retrieves the web URL of a file on Volunteer Science from its filename (only valid for files uploaded to the same experiment as where the WebGL app is hosted)
 		public StringFetchAction GetFileURL(string fileName, Action<string> callback)
 		{
 			return VariableFetcher.Get.GetString(getFileURLFetchCallback(fileName), 
@@ -46,6 +56,7 @@ namespace VolunteerScience
 			);
 		}
 			
+		// Loads an image from a web URL
 		IEnumerator loadTexture(string url, Action<Sprite> callback)
 		{
 			Texture2D texture;

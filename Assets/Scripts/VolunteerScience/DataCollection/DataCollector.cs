@@ -36,6 +36,7 @@ namespace VolunteerScience
 		public Experiment TrackExperiment(string instanceName)
 		{
 			Experiment exp = new Experiment(instanceName);
+			// Stores the experiments within a Dictionary
 			instances[exp.GetName] = exp;
 			return exp;
 		}
@@ -55,6 +56,7 @@ namespace VolunteerScience
 		}
 
 		// Returns the active experiment or null
+		// WARNING: returns null if there is no active experiment
 		public Experiment GetActiveExperiment()
 		{
 			if(hasActiveExperiment)
@@ -74,7 +76,7 @@ namespace VolunteerScience
             this.activeExperiment = GetExperiment(name);
         }
 
-		// Adds a row of data to the current experiment
+		// Adds a row of data to the current experiment (if it exists)
         public void AddDataRow(params object[] data)
         {
             if(hasActiveExperiment)
@@ -101,6 +103,7 @@ namespace VolunteerScience
         }
             
 		// Gets how much time has passed since the timer begun
+		// Warning: returns NaN if there is no active experiment
         public double GetEventTimeSeconds(string eventName)
         {
             if(hasActiveExperiment)
@@ -114,11 +117,12 @@ namespace VolunteerScience
             }
         }
 
-		// Submits the most recently added row of data for the experiment
+		// Submits the most recently added row of data for the active experiment (if it exists)
         public void SubmitLastDataRow()
         {
             if(hasActiveExperiment)
             {
+				// Sends a call to Volunteer Science
                 submitData(activeExperiment.LastRowToString());
             }
             else
@@ -137,6 +141,7 @@ namespace VolunteerScience
         void submitData(string dataAsString)
         {
             string jsMessage = string.Format("{0}('{1}');", SUBMIT_FUNC, dataAsString);
+			// Calls the submit function within the external player JavaScript file
             Application.ExternalEval(jsMessage);
         }
 
@@ -185,6 +190,7 @@ namespace VolunteerScience
 		// Converts a specified row to a string, inserting commas between each piece of data
         public string RowToString(int rowIndex)
         {
+			// Uses a StringBuilder to more effeciently construct the string
 			System.Text.StringBuilder dataString = new System.Text.StringBuilder();
             try
             {   
@@ -198,6 +204,7 @@ namespace VolunteerScience
             }
             catch
             {
+				// Returns empty string if it encounters an error
                 return string.Empty;
             }
         }
@@ -208,7 +215,7 @@ namespace VolunteerScience
             this.activeTimers[key] = DateTime.Now;
         }
 
-		// Returns how long has passed since the timer started
+		// Returns how long has passed in seconds since the timer started
         public double GetEventTimeSeconds(string key)
         {
             DateTime startTime;
